@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FijiFit</title>
+
+    <!-- 
+    - favicon
+  -->
+    {% load static %}
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    {% load static %}
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    {% load static %}
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- 
+    - custom css link
+  -->
+    <link rel="stylesheet" href="{% static 'static/css/Home.css' %}">
+
+
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body id="top">
+
+    <!-- 
+    - #HEADER
+  -->
+
+    <header class="header" data-header>
+        <!-- Breadcrumbs -->
+        <div class="container">
+
+            <a href="#" class="logo">
+                <ion-icon name="barbell-sharp" aria-hidden="true"></ion-icon>
+
+                <span class="span">FijiFit</span>
+            </a>
+
+            <nav class="navbar" data-navbar>
+
+                <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+                    <ion-icon name="close-sharp" aria-hidden="true"></ion-icon>
+                </button>
+
+                <ul class="navbar-list">
+
+                    <li>
+                        <a href="#home" class="navbar-link active" data-nav-link>Home</a>
+                    </li>
+
+                    <li>
+                        <a href="#about" class="navbar-link" data-nav-link>About Us</a>
+                    </li>
+
+                    <li>
+                        <a href="#class" class="navbar-link" data-nav-link>Services</a>
+                    </li>
+
+                    <li>
+                        <a href="#contactUs" class="navbar-link" data-nav-link>Contact Us</a>
+                    </li>
+
+                    <li class="navbar-link" data-nav-link> |</li>
+
+                    <li>
+                        <a href="/Login/" class="navbar-link" data-nav-link>Login</a>
+                    </li>
+
+
+                </ul>
+
+            </nav>
+
+            <a href="/SignUp/" class="btn btn-secondary">Sign Up</a>
+
+            <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+                <span class="line"></span>
+                <span class="line"></span>
+
+                <span class="line"></span>
+            </button>
+
+        </div>
+        
+    </header>
+
+    <main>
+        <article>
+            <section class="section hero" id="home" aria-label="hero" data-section
+                style="height: 780px; background-image: url('/media/homepage.jpg');">
+                <div class="container">
+
+                    <div class="hero-content">
+
+                        <h1 class="h1 hero-title">Get Fit with FijiFit</h1>
+
+                        <p class="section-text">
+                            Embracing Fitness The Fijian Way
+                        </p>
+
+                        <a href="/SignUp/" class="btn btn-primary">Join Us</a>
+
+                    </div>
+                </div>
+            </section>
+
+            <!--#ABOUT-->
+
+            <section class="section about" id="about" aria-label="about">
+                <div class="container">
+
+                    <div class="about-banner has-after">
+                        <img src="/media/5.jpg" width="660" height="648" loading="lazy" alt="about banner"
+                            class="w-100">
+
+                        <img src="" width="660" height="534" loading="lazy" aria-hidden="true" alt=""
+                            class="circle circle-1">
+                        <img src="" width="660" height="534" loading="lazy" aria-hidden="true" alt=""
+                            class="circle circle-2">
+                    </div>
+
+                    <div class="about-content">
+
+                        <p class="section-subtitle">About Us</p>
+
+                        <h2 class="h2">FijiFit</h2>
+                        <h3 class="">Welcome to FijiFit!</h3>
+
+                        <p class="section-text">
+                            Dive into the world of FijiFit, the ultimate destination for the local all things fitness!
+                            Whether you're kickstarting your fitness journey or elevating your routine to new heights,
+                            FijiFit is tailored just for you.
+                        </p>
+
+                        <p class="section-text">
+                            With custom workout plans, expert locally available nutritional advice, and allowing you to
+                            set and customize your own fitness journey,
+                            our website offers unparalleled resources to guide you towards your health goals.
+                            FijiFit ensures that your fitness aspirations are just a click away. Transform your life;
+                            join the FijiFit revolution today
+                        </p>
+
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- 
+        - #CLASS
+      -->
+
+            <section class="section bg-dark has-bg-image" id="class" aria-label="class">
+                <div class="container">
+
+                    <p class="section-subtitle" style="background-color:black; color: white;">Our Services</p>
+
+                    <h2 class="h2 section-title text-center"></h2>
+
+                    <ul class="class-list has-scrollbar">
+
+                        <li class="scrollbar-item">
+                            <div class="class-card" style="width: 350px; height: 315px;">
+
+                                <figure class="card-banner img-holder">
+                                    <img src="/media/s2.jpg" style="width:416px; height:200px;" loading="lazy"
+                                        alt="Cardio & Strenght" class="img-cover">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="title-wrapper">
+
+                                        <h3 class="h3">
+                                            <a class="card-title">MEAL<br> RECOMMENDATIONS</a>
+                                        </h3>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+
+
+                        <li class="scrollbar-item">
+                            <div class="class-card" style="width: 350px; height: 315px;">
+
+                                <figure class="card-banner img-holder">
+                                    <img src="/media/4.jpg" style="width: 416px; height:200px;" loading="lazy"
+                                        alt="Cardio & Strenght" class="img-cover">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="title-wrapper">
+
+                                        <h3 class="h3">
+                                            <a class="card-title">WORKOUT <br>RECOMMENDATIONS</a>
+                                        </h3>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li class="scrollbar-item">
+                            <div class="class-card" style="width: 350px; height: 315px;">
+
+                                <figure class="card-banner img-holder">
+                                    <img src="/media/s3.jpg" style="width: 416px; height:200px;" loading="lazy"
+                                        alt="Cardio & Strenght" class="img-cover">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="title-wrapper">
+
+                                        <h3 class="h3">
+                                            <a class="card-title">BMI <br> PROGRESS</a>
+                                        </h3>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li class="scrollbar-item">
+                            <div class="class-card" style="width: 350px; height: 315px;">
+
+                                <figure class="card-banner img-holder">
+                                    <img src="/media/s4.jpg" style="width: 416px; height:200px;" loading="lazy"
+                                        alt="Cardio & Strenght" class="img-cover">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="title-wrapper">
+
+                                        <h3 class="h3">
+                                            <a class="card-title">WORKOUT <br> PLAN</a>
+                                        </h3>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li class="scrollbar-item">
+                            <div class="class-card" style="width: 350px; height: 310px;">
+
+                                <figure class="card-banner img-holder">
+                                    <img src="/media/s5.jpg" style="width: 416px; height:200px;" loading="lazy"
+                                        alt="Cardio & Strenght" class="img-cover">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="title-wrapper">
+
+                                        <h3 class="h3">
+                                            <a class="card-title">EXERCISE <br> PLAN</a>
+                                        </h3>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li class="scrollbar-item">
+                            <div class="class-card" style="width: 350px; height: 310px;">
+
+                                <figure class="card-banner img-holder">
+                                    <img src="/media/s6.jpg" style="width: 416px; height:200px;" loading="lazy"
+                                        alt="Cardio & Strenght" class="img-cover">
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="title-wrapper">
+
+                                        <h3 class="h3">
+                                            <a class="card-title">EXERCISE RECOMMENDATIONS</a>
+                                        </h3>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </section>
+
+            <!-- 
+    - #FOOTER
+  -->
+
+            <footer class="footer" id="contactUs">
+
+                <div class="section footer-top bg-dark has-bg-image" style="background-color: white; color:black;">
+                    <div class="container">
+
+
+                        <ul class="footer-list">
+
+                            <li>
+                                <p class="footer-list-title has-before" style="color: black;">Our Links</p>
+                            </li>
+
+                            <li>
+                                <a href="" class="footer-link"><i class="fa-brands fa-facebook"
+                                        style="color: #000000;"></i></i> Facebook</a>
+                            </li>
+
+                            <li>
+                                <a href="" class="footer-link"><i class="fa-brands fa-instagram"
+                                        style="color: #000000;"></i> Instagram</a>
+                            </li>
+
+                            <li>
+                                <a href="" class="footer-link"><i class="fa-brands fa-linkedin"
+                                        style="color: #000000;"></i> Linkedin</a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="footer-list">
+
+                            <li>
+                                <p class="footer-list-title has-before" style="color: black;">Contact Us</p>
+                            </li>
+
+
+                            <li class="footer-list-item">
+                                <div class="icon">
+                                    <ion-icon name="mail" aria-hidden="true"></ion-icon>
+                                </div>
+
+                                <div>
+                                    <a href="mailto:info@fijifit.com"
+                                        class="footer-link">FijifitCustomerSupport@gmail.com</a>
+                                </div>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container">
+
+                        <p class="copyright">
+                            &copy; 2023 FijiFit. All Rights Reserved.
+                        </p>
+
+                    </div>
+                </div>
+
+            </footer>
+
+
+
+
+
+            <!-- 
+    - #BACK TO TOP
+  -->
+
+            <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+                <ion-icon name="caret-up-sharp" aria-hidden="true"></ion-icon>
+            </a>
+
+
+
+
+
+            <!-- 
+    - custom js link
+  -->
+            {% load static %}
+            <script src="{% static 'css/script.js' %}" defer></script>
+
+            <!-- 
+    - ionicon link
+  -->
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var navbarLinks = document.querySelectorAll('.navbar-link');
+
+        navbarLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                navbarLinks.forEach(function (otherLink) {
+                    otherLink.classList.remove('active');
+                });
+
+                link.classList.add('active');
+            });
+        });
+    });
+</script>
+
+</html>

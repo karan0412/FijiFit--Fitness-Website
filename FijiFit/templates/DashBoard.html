@@ -1,0 +1,238 @@
+{% extends 'SideBar.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'static/css/DashBoard.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+  <div class="row row1">
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+      <a class="shadow btn btn-bmi w-100 float-start mt-3 ms-3" href="{% url 'cal_bmi_view' %}">
+        <div>
+          {% for message in messages %}
+            <h3 id="error-message" style="color:orangered; font-size: 15px; text-align: left;" {% if message.tags %} class="{{ message.tags }}" 
+            {% endif %}>
+              {{ message }}
+            </h3>
+            {% endfor %}
+          <canvas id="myChart">
+            
+          </canvas>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+      <div id="bmiGauge" class="ms-2 mt-4" style="width:300px; height:300px;"></div>
+      <div class="text-light">
+        {% if bmi_category %}
+        <p>Your BMI category is: {{ bmi_category }}</p>
+        {% else %}
+        <p>BMI data not available</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+      <div class="card ms-3 mt-4 shadow" style="width: 18rem;">
+        {% load static %}
+        <img src="{% static 'static/images/workoutplanCard.jpg' %}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Plan Your Workout</h5>
+          <p class="card-text">Set clear fitness goals, pick exercises accordingly, and include rest.
+            Adjust as needed. Stay consistent and planned for success.</p>
+          <a href="{% url 'PlanWorkout' %}" class="btn btn-card">Create Workout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+      <div class="card mt-4 shadow" style="width: 18rem;">
+        <img src="{% static 'static/images/workoutrecCard.jpg' %}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Workouts For You</h5>
+          <p class="card-text"> Tailored workout suggestions await you!
+            Based on your fitness goals, our site curates a selection of exercises to guide you on your journey.
+            Let's make fitness personal again! </p>
+          <a href="{% url 'WorkoutRec' %}" class="btn btn-card">Browse Workouts</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+      <div class="card mt-4 shadow" style="width: 18rem;">
+        <img src="{% static 'static/images/mealrecCard.jpg' %}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Meals For You</h5>
+          <p class="card-text">FijiFit offers personalized meal suggestions based on individual health goals.
+            Aiming for healthier eating?
+            Get curated local dishes that ensure both nutrition and taste. </p>
+          <a href="{% url 'MealRecommendations' %}" class="btn btn-card">Browse Meals</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Help Cloud in Top Right Corner -->
+<div class="help-cloud" onclick="showHelpCloud()">?</div>
+
+<!-- Help Cloud Message -->
+<div id="helpCloud" class="cloud-message">
+  <span class="close" onclick="hideHelpCloud()">&times;</span>
+  <p class="cloud-text">This is the main dashboard. This is the page where you can access our services and also track your BMI. 
+    To start, simply click on the graph to enter your weight and height.
+  </p>
+</div>
+
+
+<style>
+  /* Style for the help cloud */
+  .help-cloud {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: orangered;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  .help-cloud:hover {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    color: orangered;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  /* Style for the cloud message */
+  .cloud-message {
+    display: none;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .cloud-text {
+    font-size: 14px;
+    color: #333;
+    margin-top: 20px;
+  }
+
+  .close {
+    color: orangered;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+
+    type: 'line',
+    data: {
+      labels: [{% for x in obj %}'{{ x.date }}', {% endfor %}],
+      datasets: [{
+      label: 'BMI',
+      
+      data: [{% for x in obj %}'{{ x.bmi }}', {% endfor %}],
+    borderWidth: 3,
+    backgroundColor: '#000000',  // Add this line
+    borderColor: '#000000',  // Optional: Set the line color
+        }]
+      },
+    options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      }
+    }
+  }
+    });
+
+  // Function to show help cloud message
+  function showHelpCloud() {
+    document.getElementById('helpCloud').style.display = 'block';
+  }
+
+  // Function to hide help cloud message
+  function hideHelpCloud() {
+    document.getElementById('helpCloud').style.display = 'none';
+  }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load('current', { 'packages': ['gauge'] });
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['BMI', {{ bmi_value }}] 
+    ]);
+
+  var options = {
+    width: 400, height: 300,
+    redFrom: 30, redTo: 40,
+    yellowFrom: 25, yellowTo: 29.9,
+    greenFrom: 18.5, greenTo: 24.9,
+    minorTicks: 5,
+    max: 40,
+    min: 0,
+
+  };
+
+  var chart = new google.visualization.Gauge(document.getElementById('bmiGauge'));
+
+  chart.draw(data, options);
+ 
+  }
+</script>
+
+<script>
+  // JavaScript to display and hide the error message
+  document.addEventListener('DOMContentLoaded', function () {
+    var errorMessage = document.getElementById('error-message');
+    if (errorMessage) {
+      errorMessage.style.display = 'block'; // Show the error message
+
+      // Hide the error message after 7 seconds (1700 milliseconds)
+      setTimeout(function () {
+        errorMessage.style.display = 'none';
+      }, 1700);
+    }
+  });
+</script>
+{% endblock %}

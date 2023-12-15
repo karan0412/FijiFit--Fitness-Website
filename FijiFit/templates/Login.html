@@ -1,0 +1,71 @@
+{% extends 'nav.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/Forms.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap">
+{% endblock %}
+
+{% block content %}
+<main>
+  <article>
+
+    <div class='container'>
+      <div class='pic' id='pic4'></div>
+      <div class='pic' id='pic3'></div>
+      <div class='pic' id='pic2'></div>
+      <div class='pic' id='pic1'></div>
+    </div>
+
+    <div class="form-wrapper">
+      <h2>Sign In</h2>
+
+      {% for message in messages %}
+      <h3 id="error-message" style="background-color:white; color:orangered;" {% if message.tags %}
+        class="{{ message.tags }}" {% endif %}>
+        {{ message }}
+      </h3>
+      {% endfor %}
+      <form method="post" action="/Login/">
+        {% csrf_token %}
+
+        <div class="form-control">
+          <input type="text" name="uname" required>
+          <label>Username</label>
+        </div>
+        <div class="form-control">
+          <input type="password" name="pwd" required>
+          <label>Password</label>
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
+
+      <p>New to FijiFit? <a href="/SignUp/"> Sign up now</a></p>
+
+    </div>
+  </article>
+</main>
+
+<script>
+  // JavaScript to display and hide the error message
+  document.addEventListener('DOMContentLoaded', function () {
+    var errorMessage = document.getElementById('error-message');
+    if (errorMessage) {
+      errorMessage.style.display = 'block'; // Show the error message
+
+      // Hide the error message after 1.7 seconds (1700 milliseconds)
+      setTimeout(function () {
+        errorMessage.style.display = 'none';
+      }, 1700);
+    }
+  });
+
+</script>
+
+<!-- 
+    - ionicon link
+  -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+{% endblock %}

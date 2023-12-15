@@ -1,0 +1,98 @@
+{% extends 'nav.html' %}
+
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'static/css/Forms.css' %}">
+
+<!-- 
+    - google font link
+  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600;700;800;900&family=Rubik:wght@400;500;800&display=swap"
+    rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <article>
+
+        <div class='container'>
+            <div class='pic' id='pic4'></div>
+            <div class='pic' id='pic3'></div>
+            <div class='pic' id='pic2'></div>
+            <div class='pic' id='pic1'></div>
+        </div>
+
+        <div class="form-wrapper">
+            <h2>Sign Up</h2>
+
+            {% for message in messages %}
+            <h3 id="error-message" style="background-color:white; color:orangered" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }}
+            </h3>
+            {% endfor %}
+
+            <form method="post" action="/SignUp/">
+                {% csrf_token %}
+
+                <div class="form-control">
+                    <input type="text" name="user_fname" pattern="^[a-zA-Z\s]*$" required>
+                    <label>First Name</label>
+                </div>
+                <div class="form-control">
+                    <input type="text" name="user_lname" pattern="^[a-zA-Z\s]*$" required>
+                    <label>Last Name</label>
+                </div>
+                <div class="form-control">
+                    <input type="text" name="user_username" pattern="^[a-zA-Z0-9_-]{3,}$" required>
+                    <label>Username</label>
+                </div>
+
+                <div class="form-control">
+                    <input type="email" name="user_email" pattern="^[a-zA-Z0-9_]+@[a-zA-Z]+\.[a-zA-Z]{2,}$" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="form-control">
+                    <input type="password" name="user_pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,16}" title="Eg: Uppercase, Lowercase and Special Character" required>
+                    <label>Password</label>
+                </div>
+
+                <button type="submit">Sign Up</button>
+
+            </form>
+
+            <p>Existing User? <a href="/Login/"> Login</a></p>
+
+        </div>
+    </article>
+</main>
+
+<script>
+    // JavaScript to display and hide the error message
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            errorMessage.style.display = 'block'; // Show the error message
+
+            // Hide the error message after 5 seconds (5000 milliseconds)
+            setTimeout(function () {
+                errorMessage.style.display = 'none';
+            }, 1500);
+        }
+    });
+</script>
+
+<!-- 
+    - ionicon link
+  -->
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+{% endblock %}

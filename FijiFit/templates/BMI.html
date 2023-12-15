@@ -1,0 +1,38 @@
+{% extends 'SideBar.html' %}
+
+{% load static %}
+{% block css %}
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'static/css/bmi.css' %}">
+  
+{% endblock %}
+
+{% block content %}
+
+  <div class='container'>
+    <div class='pic' id='pic1'></div>
+  </div>
+
+  <div class="form-wrapper">
+    <h2>BMI Calculator</h2>
+
+    <form method="post" action="/BMI/">
+      {% csrf_token %}
+      <div class="form-control">
+        <input type="text" name="Height" value="{{ height }}" pattern="^(?!-)(?!0*(\.0+)?$)\d+(\.\d+)?$" title=" Valid Input Type e.g. 143.2" required>
+        <label>Height (cm)</label>
+      </div>
+      <div class="form-control">
+        <input type="text" name="Weight" value="{{ weight }}" pattern="^(?!-)(?!0*(\.0+)?$)\d+(\.\d+)?$" title=" Valid Input Type e.g. 34.2" required>
+        <label>Weight (kg)</label>
+      </div>
+      
+      <div></div>
+
+      <div></div>
+      <button type="save">Save</button>
+    </form>
+  </div>
+
+{% endblock %}

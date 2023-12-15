@@ -1,0 +1,419 @@
+{% extends 'SideBar.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'static/css/WorkoutPlan.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="head">
+  <h1>Workout Plan</h1>
+  <button type="button" class="btn btn-secondary addWorkout" data-bs-toggle="modal"
+    data-bs-target="#addWorkoutModal">Add Workout</button>
+
+    {% for message in messages %}
+      <h3 id="error-message" style="color:white; margin-left: 16%; margin-top: 2%;" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+        {{ message }}
+      </h3>
+    {% endfor %}
+
+</div>
+
+{% for x in obj %}
+
+<div class="maincontainer">
+  <div class="card shadow-lg" style="width: 18rem;">
+    <div class="card-body position-relative">
+      <div class="dropdown card-dropdown">
+        <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+          aria-expanded="false" style="position: absolute; right: 0; top: 0;"><i class="fas fa-ellipsis-v"></i></button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+          <li>
+            <button class="dropdown-item btn" data-bs-toggle="modal"
+              data-bs-target="#deleteConfirm{{ x.pk }}">Delete</button>
+          </li>
+          <li>
+            <button class="dropdown-item btn" data-bs-toggle="modal"
+              data-bs-target="#updateWorkout{{ x.pk }}">Update</button>
+          </li>
+          <li>
+            <form method="post" action="{% url 'markComplete' x.pk %}">
+              {% csrf_token %}
+              <button class="dropdown-item btn">Workout Finished</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+      <h5 class="card-title" required>{{ x.Plan_title }}</h5>
+      <p class="card-text" required>{{ x.Plan_desc }}</p>
+      <hr>
+
+
+      <h6 class="card-text" required>Due by: {{ x.Plan_setDateTime }}</h6>
+      <!--
+          <h6 class="card-text" required>Due by: {{ x.Plan_setTime }}</h6>
+        -->
+      <button type="button" class="workoutbtn" data-bs-toggle="modal" data-bs-target="#PlanWorkoutModal{{ x.pk }}">Plan
+        This Workout</button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="modal" id="addWorkoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content px-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Your Workout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form method="post" action="/WorkoutPlan/">
+        {% csrf_token %}
+        <div class="mb-3 pt-3">
+          <label class="form-label">Workout Title</label>
+          <input type="" name="WorkoutTitle" class="form-control" id="exampleFormControlInput1" pattern="[a-zA-Z ]+"
+            title=" String" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Workout Description</label>
+          <textarea class="form-control" name="WorkoutDescription" rows="3" pattern="[a-zA-Z ]+" title=" String"
+            required></textarea>
+        </div>
+
+        <div class="mb-3 pt-3">
+          <label class="form-label">Workout Due Date</label>
+          <input type="datetime-local" name="WorkoutDueDate" class="form-control" id="inputDate" min="{{ today_date }}"
+            required />
+
+          <!--
+            <label class="form-label">Workout Due Time</label>
+            <input type="time" name="WorkoutDueDate" class="form-control" id="exampleFormControlInput1" />
+              -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="save" class="btn btn-primary">Add Workout</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% for x in obj %}
+<div class="modal" id="PlanWorkoutModal{{ x.pk }}" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content px-3">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ x.Plan_title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="{% url 'addExercise' x.pk %}">
+        {% csrf_token %}
+        <div class="mb-3 pt-3">
+          <label class="form-label">Enter Exercise</label>
+          <input type="text" name="ExerciseTitle" class="form-control" id="exampleFormControlInput2"
+            pattern="[a-zA-Z ]+" title=" String" required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="save" class="btn btn-primary">Add Exercise</button>
+        </div>
+      </form>
+      <label>Exercises in this Workout:</label>
+      {% for exercise in x.exercises.all %}
+      <div class="card mb-4">
+        <div class="dropdown card-dropdown">
+          <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+            aria-expanded="false" style="position: absolute; right: 0; top: 0;"><i
+              class="fas fa-ellipsis-v"></i></button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+            <li>
+              <form method="post" action="{% url 'deleteExercise' exercise.pk %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item btn">Delete</button>
+              </form>
+            </li>
+            <li>
+              <button class="dropdown-item btn" data-bs-toggle="modal"
+                data-bs-target="#updateExercise{{ exercise.pk }}">Update</button>
+            </li>
+          </ul>
+        </div>
+        <a class="text-decoration-none text-dark" data-bs-toggle="modal" href="#setModal{{ exercise.pk }}"
+          role="button">
+          <h6 class="pt-2 ps-2">{{ exercise.Exercise_title }}</h6>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for x in obj %}
+<div class="modal fade" id="deleteConfirm{{ x.pk }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Delete</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this workout?</p>
+      </div>
+      <div class="modal-footer">
+        <form method="post" action="{% url 'deleteWorkout' x.pk %}">
+          {% csrf_token %}
+
+          <button type="submit" class="btn btn-primary">Yes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for x in obj %}
+<div class="modal" id="updateWorkout{{ x.pk }}" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content px-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Your Workout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form method="post" action="{% url 'updateWorkout' x.pk %}">
+        {% csrf_token %}
+        <div class="mb-3 pt-3">
+          <label class="form-label">Workout Title</label>
+          <input type="" name="WorkoutTitle" class="form-control" id="exampleFormControlInput1"
+            value="{{ x.Plan_title }}" pattern="[a-zA-Z ]+" title=" String" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Workout Description</label>
+          <textarea class="form-control" name="WorkoutDescription" rows="3" value="{{ x.Plan_desc }}"
+            pattern="[a-zA-Z ]+" title=" String" required></textarea>
+        </div>
+        <div class="mb-3 pt-3">
+          <label class="form-label">Workout Due Date</label>
+          <input type="date" name="WorkoutDueDate" class="form-control" id="inputDate" value="{{ x.Plan_setDate }}"
+            required />
+
+          <!--
+            <label class="form-label">Workout Due Time</label>
+            <input type="time" name="WorkoutDueDate" class="form-control" id="exampleFormControlInput1" />
+              -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="save" class="btn btn-primary">Update Workout</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for x in obj %}
+{% for exercise in x.exercises.all %}
+<div class="modal" id="updateExercise{{ exercise.pk }}" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content px-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Update {{ exercise.Exercise_title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="{% url 'updateExercise' exercise.pk %}">
+        {% csrf_token %}
+        <div class="mb-3 pt-3">
+          <label class="form-label">Enter Exercise</label>
+          <input type="text" name="ExerciseTitle" class="form-control"
+            id="updateExerciseFormControlInput{{ exercise.pk }}" value="{{ exercise.Exercise_title }}"
+            pattern="[a-zA-Z ]+" title=" String" required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Update Exercise</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endfor %}
+
+{% for x in obj %}
+{% for exercise in x.exercises.all %}
+<div class="modal" id="setModal{{ exercise.pk }}" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content px-3">
+      <div class="modal-header">
+        <h5 class="modal-title">{{exercise.Exercise_title}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" action="{% url 'addSetsReps' exercise.pk %}">
+        {% csrf_token %}
+        <div class="mb-3 pt-3">
+          <label class="form-label">Enter Set</label>
+          <input type="text" name="setsReps" class="form-control" id="exampleFormControlInput2"
+            required />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add Set</button>
+        </div>
+
+        <label class="mb-3">Sets in this Workout:</label>
+      </form>
+      {% for set in exercise.sets.all %}
+      <div class="card mb-4">
+        <div class="dropdown card-dropdown">
+          <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+            aria-expanded="false" style="position: absolute; right: 0; top: 0;"><i
+              class="fas fa-ellipsis-v"></i></button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+            <li>
+              <form method="post" action="{% url 'deleteSet' set.pk %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item btn">Delete</button>
+              </form>
+            </li>
+            <form method="post" action="{% url 'updateSet' set.pk %}">
+              {% csrf_token %}
+              <li>
+                <button type="submit" class="dropdown-item btn">Update</button>
+              </li>
+          </ul>
+        </div>
+
+        <input type="text" name="setText" class="form-control" id="" value="{{ set.sets_reps_Text }}" />
+        </form>
+
+      </div>
+      {% endfor %}
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#PlanWorkoutModal{{ x.pk }}"
+          data-bs-toggle="modal">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endfor %}
+
+<!-- Help Cloud in Top Right Corner -->
+<div class="help-cloud" onclick="showHelpCloud()">?</div>
+
+<!-- Help Cloud Message -->
+<div id="helpCloud" class="cloud-message">
+  <span class="close" onclick="hideHelpCloud()">&times;</span>
+  <p class="cloud-text">Want to customize your own workout plan? Click <b> Add Workout </b> to start! Customize however you
+  like. Schedule your workouts today!</p>
+</div>
+
+
+<script>
+  document.getElementById('inputDate').addEventListener('change', function () {
+    var selectedDate = new Date(this.value);
+    var currentDate = new Date();
+
+    currentDate.setHours(0, 0, 0, 0); // Set time to midnight to compare dates only
+
+    if (selectedDate < currentDate) {
+      alert('Please select a valid future date!');
+      this.value = ""; // Reset the input value
+    }
+  });
+
+  // Function to show help cloud message
+  function showHelpCloud() {
+    document.getElementById('helpCloud').style.display = 'block';
+  }
+
+  // Function to hide help cloud message
+  function hideHelpCloud() {
+    document.getElementById('helpCloud').style.display = 'none';
+  }
+
+  // JavaScript to display and hide the error message
+  document.addEventListener('DOMContentLoaded', function () {
+    var errorMessage = document.getElementById('error-message');
+    if (errorMessage) {
+      errorMessage.style.display = 'block'; // Show the error message
+
+      // Hide the error message after 5 seconds (5000 milliseconds)
+      setTimeout(function () {
+        errorMessage.style.display = 'none';
+      }, 1500);
+    }
+  });
+</script>
+
+<style>
+  /* Style for the help cloud */
+  .help-cloud {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: orangered;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  .help-cloud:hover {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    color: orangered;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  /* Style for the cloud message */
+  .cloud-message {
+    display: none;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .cloud-text {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .close {
+    color: orangered;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'SideBar.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'static/css/WorkoutRec.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>Workouts For You!</h1>
+
+{% for x in wrk %}
+
+<div class="maincontainer">
+  <div class="card cardRec" style="width: 18rem;">
+    <img src="{{x.RecPlan_img.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{x.RecPlan_title}}</h5>
+      <p class="card-text">{{x.RecPlan_desc}}</p>
+      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ViewWorkout{{ x.pk }}">
+        View This Workout
+      </button>
+    </div>
+  </div>
+
+</div>
+
+
+
+{% endfor %}
+
+{% for x in wrk %}
+
+<div class="modal fade" id="ViewWorkout{{ x.pk }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="staticBackdropLabel">{{x.RecPlan_title}}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% for y in x.recExercises.all %}
+        <div class="card mb-4">
+          <h6 class="card-title pt-2 ps-2">{{y.RecEx_title}}</h6>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<!-- Help Cloud in Top Right Corner -->
+<div class="help-cloud" onclick="showHelpCloud()">?</div>
+
+<!-- Help Cloud Message -->
+<div id="helpCloud" class="cloud-message">
+  <span class="close" onclick="hideHelpCloud()">&times;</span>
+  <p class="cloud-text">We have provided tailored workouts based on your BMI!</p>
+</div>
+
+<style>
+  /* Style for the help cloud */
+  .help-cloud {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: orangered;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+  .help-cloud:hover {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    color: orangered;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  /* Style for the cloud message */
+  .cloud-message {
+    display: none;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .cloud-text {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .close {
+    color: orangered;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+ 
+  // Function to show help cloud message
+  function showHelpCloud() {
+    document.getElementById('helpCloud').style.display = 'block';
+  }
+
+  // Function to hide help cloud message
+  function hideHelpCloud() {
+    document.getElementById('helpCloud').style.display = 'none';
+  }
+
+</script>
+
+{% endblock %}
