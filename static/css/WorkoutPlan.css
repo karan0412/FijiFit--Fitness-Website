@@ -1,0 +1,177 @@
+body {
+  font-family: 'Catamaran', sans-serif,'Rubik';
+  margin-bottom: 5%;
+  background-color: rgb(33, 37, 37);
+}
+
+h1 {
+  text-align: center;
+  margin-left: 15%;
+  margin-top: 5%;
+  margin-bottom: 4%;
+  font-family: Impact;
+  color: white;
+}
+
+.head {
+  text-align: center;
+}
+.tabs{
+  margin-left: 15%;
+}
+
+.btn-secondary {
+  background-color: orangered;
+  text-align: center;
+  color: white;
+  border: none;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+  font-size: 20px;
+  margin-left: 15%;
+}
+
+.btn-secondary:hover {
+  background-color: white;
+  text-align: center;
+  color: orangered;
+  border: none;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: black;
+  text-align: center;
+  color: white;
+  border: none;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 8px;
+  font-size: 20px;
+  border-radius: 8px;
+}
+
+.btn-primary:hover {
+  background-color: orangered;
+  text-align: center;
+  color: white;
+  border: none;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 8px;
+}
+
+.modal-footer .btn-secondary {
+  background-color: black;
+  text-align: center;
+  color: white;
+  margin-left: 20px;
+  border: none;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 8px;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: orangered;
+  text-align: center;
+  color: white;
+  border-color: orangered;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 8px;
+}
+
+.modal-title {
+  font-family: Impact;
+}
+
+.modal-dialog .modal-content {
+  background-color: rgb(120, 122, 125);
+  color: black;
+}
+
+
+.maincontainer {
+  position: relative;
+  margin-top: 5%;
+  border-radius: 5.5%;
+  display: inline-block;
+}
+
+.maincontainer .workoutbtn {
+  background-color: orangered;
+  margin-top: 5%;
+  border-radius: 4px;
+  padding: 7px;
+  padding-left: 14px;
+  padding-right: 14px;
+  color: white;
+  border: none;
+  float: right;
+}
+
+.maincontainer .workoutbtn:hover {
+  background-color: black;
+  margin-top: 5%;
+  border-radius: 4px;
+  padding: 7px;
+  padding-left: 14px;
+  padding-right: 14px;
+  color: white;
+  border: none;
+  float: right;
+}
+
+.dropdown-menu{
+  background-color: black;
+  color: white;
+}
+.dropdown-item{
+  background-color: black;
+  color: white;
+}
+
+.dropdown-item:hover {
+  background-color: white;
+  color: black;
+}
+
+.card {
+  background-color: #fbe9d7;
+  color: black;
+}
+
+.card-title {
+  color: rgba(42, 25, 25, 0.608);
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.maincontainer:nth-child(odd) {
+  margin-left: 33%;
+  order: calc(2 * var(--random-card) - 1);
+}
+
+.maincontainer:nth-child(even) {
+  margin-left: 13%;
+  order: calc(2 * var(--random-card));
+}
+
+.new-line {
+  white-space: pre-line;
+}
+
+p {
+  margin: 5%;
+  line-height: 2em;
+}

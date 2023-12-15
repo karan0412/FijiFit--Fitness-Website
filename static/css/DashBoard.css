@@ -1,0 +1,34 @@
+body{
+    font-family: 'Catamaran', sans-serif,'Rubik';
+    
+    margin-left: 18%;
+    margin-bottom: 1%;
+    background-color: rgb(33, 37, 37);
+}
+
+.btn-card{
+    background-color: orangered;
+    color: white;
+}
+.btn-card:hover{
+    background-color: black;
+    color: white;
+
+}
+.btn-bmi{
+    background-color: white;
+}
+
+.btn-bmi:hover{
+    background-color: #fbe9d7;
+}
+
+.card{
+    background-color: white;
+}
+
+.card:hover{
+    background-color: #fbe9d7;
+}
+
+

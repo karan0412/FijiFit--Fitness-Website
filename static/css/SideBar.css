@@ -1,0 +1,104 @@
+body {
+  font-family:  'Catamaran', sans-serif,'Rubik';
+}
+
+.logo span{
+  display: inline-block;
+  margin-left: 40px;
+  font-size: xx-large;
+  font-weight:bold;
+  color:white;
+  font-family:Impact;
+}
+
+.logo ion-icon {
+  color: orangered;
+  font-size: 30px;
+  transform: rotate(90deg) translate(-2px, -5px);
+  position: relative;;
+}
+.dropdown-menu .dropdown-item:hover
+{
+  background-color: orangered;
+  color: white;
+}
+
+.dropdown-menu
+{
+  background-color: white;
+  color: black;
+}
+
+.sidenav {
+  height: 100%;
+  width: 18%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  font-size: xx-large;
+  overflow-x: hidden;
+  padding-top: 20px;
+  background-color: black;
+  font-family: 'Catamaran', sans-serif,'Rubik';
+}
+
+.sidenav a.my-3 {
+  padding: 6px 8px 6px 16px;
+  margin-bottom: 20px;
+  margin-left:30px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  display: block;
+  border: none; /* Add border to create a box */
+  font-family: 'Catamaran', sans-serif,'Rubik';
+}
+
+.sidenav a.my-3:hover {
+  color: orangered;
+  background-color: white;
+  display: block;
+  border: none; /* Add border to create a box */
+  border-radius: 30px; /* Optional: Add border-radius for rounded corners */
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-left: 24px;
+  margin-left:20px;
+  margin-right: 0px;
+  font-family: 'Catamaran', sans-serif,'Rubik';
+  
+}
+.sidenav a.logoutbtn{
+  padding: 6px;
+  padding-left: 4px;
+  margin-bottom: 20%;
+  margin-right:50px;
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  background-color: orangered;
+  text-align: center;
+  display: block;
+  border: none; /* Add border to create a box */
+  margin-top: 100%;
+  border-radius: 30px;
+}
+.sidenav a.logoutbtn:hover {
+  color: orangered;
+  background-color: white;
+  display: block;
+  text-align: center;
+  border-radius: 30px;
+  border: none; /* Add border to create a box */
+}
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
